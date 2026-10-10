@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { GlassCard } from '../components/GlassCard';
 import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
 import { Button } from '../components/ui/button';
 import { Progress } from '../components/ui/progress';
+import { api } from '../../utils/api';
 import {
   Select,
   SelectContent,
@@ -11,119 +12,127 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../components/ui/select';
-import { mockExpenses } from '../data/mockData';
 import { toast } from 'sonner';
-import { AlertCircle } from 'lucide-react';
+import { AlertCircle, Loader2 } from 'lucide-react';
 import { motion } from 'motion/react';
 
+// Hardcoded budget limits mapped to standard expense categories
+const BUDGET_LIMITS: Record<string, number> = {
+  wifi: 100,
+  salaries: 3000,
+  utilities: 200,
+  supplies: 400,
+  maintenance: 200,
+  other: 500
+};
+
 export function Expenses() {
+  const [loading, setLoading] = useState(true);
+  const [expenses, setExpenses] = useState<any[]>([]);
+  const [categories, setCategories] = useState<any[]>([]);
   const [formData, setFormData] = useState({
     category: '',
     description: '',
     amount: '',
   });
 
-  // Calculate budget usage by category
-  const budgetsByCategory = mockExpenses.reduce((acc, expense) => {
-    if (!acc[expense.category]) {
-      acc[expense.category] = {
+  const loadExpenseData = async () => {
+    try {
+      setLoading(true);
+      const [expensesList, expenseTypes] = await Promise.all([
+        api.get<any[]>('/expenses'),
+        api.get<any[]>('/expense-types')
+      ]);
+      setExpenses(expensesList);
+      setCategories(expenseTypes.filter(c => c.is_active === 1));
+    } catch (error) {
+      console.error('Failed to load expenses details:', error);
+      toast.error('Failed to connect to backend server');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadExpenseData();
+  }, []);
+
+  // Calculate budget usage by category dynamically based on the current month's expenses
+  const currentMonthStr = new Date().toISOString().slice(0, 7);
+  const currentMonthExpenses = expenses.filter(e => e.date.startsWith(currentMonthStr));
+
+  const budgetsByCategory = currentMonthExpenses.reduce((acc, expense) => {
+    const cat = expense.expense_type;
+    if (!acc[cat]) {
+      acc[cat] = {
         spent: 0,
-        limit: expense.budgetLimit || 0,
+        limit: BUDGET_LIMITS[cat] || BUDGET_LIMITS['other'],
       };
     }
-    acc[expense.category].spent += expense.amount;
+    acc[cat].spent += expense.amount;
     return acc;
   }, {} as Record<string, { spent: number; limit: number }>);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Ensure all active categories appear in the budget list even if they have $0 spent
+  categories.forEach(cat => {
+    if (!budgetsByCategory[cat.name]) {
+      budgetsByCategory[cat.name] = {
+        spent: 0,
+        limit: BUDGET_LIMITS[cat.name] || BUDGET_LIMITS['other']
+      };
+    }
+  });
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success('Expense Logged!', {
-      description: `${formData.category}: $${formData.amount}`,
-    });
-    setFormData({ category: '', description: '', amount: '' });
+    try {
+      const payload = {
+        expenses: [
+          {
+            expense_type: formData.category,
+            description: formData.description,
+            amount: parseFloat(formData.amount),
+          }
+        ]
+      };
+
+      await api.post('/expenses/bulk', payload);
+
+      toast.success('Expense Logged Successfully!', {
+        description: `${formData.category}: $${formData.amount}`,
+      });
+      
+      setFormData({ category: '', description: '', amount: '' });
+      loadExpenseData();
+    } catch (error: any) {
+      toast.error('Failed to log expense', {
+        description: error.message || 'Server error occurred.'
+      });
+    }
   };
 
   const totalBudget = Object.values(budgetsByCategory).reduce((sum, cat) => sum + cat.limit, 0);
   const totalSpent = Object.values(budgetsByCategory).reduce((sum, cat) => sum + cat.spent, 0);
-  const burnRate = (totalSpent / totalBudget) * 100;
+  const burnRate = totalBudget > 0 ? (totalSpent / totalBudget) * 100 : 0;
+
+  if (loading && expenses.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
+        <Loader2 className="w-10 h-10 animate-spin text-[#EF4444]" />
+        <p className="text-muted-foreground font-['Inter']">Loading expense records...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
       <div>
         <h1 className="font-['Space_Grotesk'] text-3xl mb-2">Expense Logger</h1>
-        <p className="text-muted-foreground font-['Inter']">
-          Track spending and monitor burn rate
-        </p>
       </div>
 
-      {/* Monthly Burn Rate */}
-      <GlassCard>
-        <div className="flex items-start justify-between mb-4">
-          <div>
-            <h3 className="font-['Space_Grotesk'] text-lg">Monthly Burn Rate</h3>
-            <p className="text-sm text-muted-foreground font-['Inter']">
-              ${totalSpent.toFixed(2)} of ${totalBudget.toFixed(2)} budget used
-            </p>
-          </div>
-          <div className="text-right">
-            <span className={`text-2xl font-['Space_Grotesk'] ${
-              burnRate >= 80 ? 'text-[#EF4444]' : burnRate >= 60 ? 'text-[#F59E0B]' : 'text-[#10B981]'
-            }`}>
-              {burnRate.toFixed(1)}%
-            </span>
-          </div>
-        </div>
-        <Progress
-          value={burnRate}
-          className={`h-3 ${
-            burnRate >= 80 ? 'animate-pulse' : ''
-          }`}
-        />
-      </GlassCard>
 
-      {/* Category Budgets */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {Object.entries(budgetsByCategory).map(([category, data]) => {
-          const percentage = (data.spent / data.limit) * 100;
-          const isWarning = percentage >= 80;
-          
-          return (
-            <motion.div
-              key={category}
-              animate={isWarning ? { scale: [1, 1.02, 1] } : {}}
-              transition={{ repeat: Infinity, duration: 2 }}
-            >
-              <GlassCard className={isWarning ? 'border-[#F59E0B]/50' : ''}>
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <h4 className="font-['Inter'] capitalize">{category}</h4>
-                    {isWarning && (
-                      <AlertCircle className="w-5 h-5 text-[#F59E0B] animate-pulse" />
-                    )}
-                  </div>
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-2xl font-['Space_Grotesk']">
-                      ${data.spent}
-                    </span>
-                    <span className="text-sm text-muted-foreground font-['Inter']">
-                      / ${data.limit}
-                    </span>
-                  </div>
-                  <Progress
-                    value={percentage}
-                    className={`h-2 ${isWarning ? 'animate-pulse' : ''}`}
-                  />
-                  <p className={`text-xs font-['Inter'] ${
-                    isWarning ? 'text-[#F59E0B]' : 'text-muted-foreground'
-                  }`}>
-                    {percentage.toFixed(1)}% of budget
-                  </p>
-                </div>
-              </GlassCard>
-            </motion.div>
-          );
-        })}
-      </div>
+
+
 
       {/* Log Expense Form */}
       <GlassCard className="dark:border-[#EF4444]/30 dark:bg-gradient-to-br dark:from-[#EF4444]/10 dark:to-[#1F2937] dark:bg-[#1F2937] border border-gray-200 bg-gray-50">
@@ -142,12 +151,9 @@ export function Expenses() {
                   <SelectValue placeholder="Select category" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="wifi">WiFi</SelectItem>
-                  <SelectItem value="salaries">Salaries</SelectItem>
-                  <SelectItem value="utilities">Utilities</SelectItem>
-                  <SelectItem value="supplies">Supplies</SelectItem>
-                  <SelectItem value="maintenance">Maintenance</SelectItem>
-                  <SelectItem value="other">Other</SelectItem>
+                  {categories.map((c) => (
+                    <SelectItem key={c.id} value={c.name} className="capitalize">{c.name}</SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </div>
@@ -195,7 +201,7 @@ export function Expenses() {
       <GlassCard>
         <h3 className="font-['Space_Grotesk'] text-lg mb-4">Recent Expenses</h3>
         <div className="space-y-3">
-          {mockExpenses.map((expense) => (
+          {expenses.map((expense) => (
             <div
               key={expense.id}
               className="flex items-center justify-between p-3 rounded-[20px] transition-all dark:bg-white/5 dark:hover:bg-white/10 bg-gray-50 hover:bg-gray-100 border-b border-gray-100 last:border-b-0"
@@ -203,14 +209,17 @@ export function Expenses() {
               <div className="flex-1">
                 <p className="font-['Inter']">{expense.description}</p>
                 <p className="text-xs text-muted-foreground font-['Inter'] capitalize">
-                  {expense.category} • {new Date(expense.date).toLocaleDateString()}
+                  {expense.expense_type} • {new Date(expense.date).toLocaleDateString()}
                 </p>
               </div>
               <span className="text-lg font-['Space_Grotesk'] text-[#EF4444]">
-                -${expense.amount}
+                -${expense.amount.toFixed(2)}
               </span>
             </div>
           ))}
+          {expenses.length === 0 && (
+            <p className="text-center py-4 text-muted-foreground font-['Inter']">No expenses logged yet</p>
+          )}
         </div>
       </GlassCard>
     </div>

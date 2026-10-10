@@ -38,3 +38,11 @@ lerna-debug.log*
 
 # OS
 Thumbs.db
+
+# SQLite Databases & Backups
+*.db
+*.db-shm
+*.db-wal
+*.db.backup
+*.sqlite
+*.sqlite3

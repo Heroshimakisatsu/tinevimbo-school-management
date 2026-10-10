@@ -25,7 +25,7 @@ export function GlassCard({ children, className, hover = false, isSidebar = fals
       role={onClick ? 'button' : undefined}
       tabIndex={onClick ? 0 : undefined}
       className={cn(
-        'backdrop-blur-md rounded-[20px] p-6 w-full max-w-[95%] mx-auto',
+        'backdrop-blur-md rounded-[20px] p-4 md:p-5 w-full',
         // Dark mode styling
         'dark:bg-white/5 dark:border dark:border-white/10',
         // Light mode styling

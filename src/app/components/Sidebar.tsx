@@ -8,7 +8,8 @@ import {
   Package,
   ShoppingBag,
   Sun,
-  Moon
+  Moon,
+  FileText
 } from 'lucide-react';
 import { GlassCard } from './GlassCard';
 import { cn } from './ui/utils';
@@ -29,6 +30,7 @@ const navItems = [
   { id: 'expenses', label: 'Expenses', icon: Receipt },
   { id: 'inventory', label: 'Inventory', icon: Package },
   { id: 'uniform-inventory', label: 'Uniforms', icon: ShoppingBag },
+  { id: 'logs', label: 'Logs', icon: FileText },
   { id: 'management', label: 'Management', icon: Settings },
 ];
 

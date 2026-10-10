@@ -11,12 +11,14 @@ import { Tracer } from './pages/Tracer';
 import { Management } from './pages/Management';
 import { Inventory } from './pages/Inventory';
 import { UniformInventory } from './pages/UniformInventory';
+import { Logs } from './pages/Logs';
 import { Sun, Moon } from 'lucide-react';
 
 
 export default function App() {
   const [theme, setTheme] = useState<'light' | 'dark'>('dark');
   const [currentPage, setCurrentPage] = useState('dashboard');
+  const [selectedStudentId, setSelectedStudentId] = useState<string | null>(null);
 
   useEffect(() => {
     if (theme === 'dark') {
@@ -28,6 +30,15 @@ export default function App() {
 
   const toggleTheme = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
+  };
+
+  const handleNavigate = (page: string, data?: any) => {
+    setCurrentPage(page);
+    if (data?.id) {
+      setSelectedStudentId(data.id);
+    } else {
+      setSelectedStudentId(null);
+    }
   };
 
   // Removed mock stats and expense alert logic (no initial students)
@@ -44,13 +55,15 @@ export default function App() {
       case 'expenses':
         return <Expenses />;
       case 'tracer':
-        return <Tracer />;
+        return <Tracer initialExpandedStudentId={selectedStudentId} />;
       case 'management':
         return <Management />;
       case 'inventory':
         return <Inventory />;
       case 'uniform-inventory':
         return <UniformInventory />;
+      case 'logs':
+        return <Logs />;
       default:
         return <Dashboard />;
     }
@@ -61,7 +74,7 @@ export default function App() {
       {/* Desktop Sidebar */}
       <Sidebar
         currentPage={currentPage}
-        onNavigate={setCurrentPage}
+        onNavigate={handleNavigate}
         theme={theme}
         onThemeToggle={toggleTheme}
         expenseAlert={expenseAlert}
@@ -70,9 +83,9 @@ export default function App() {
       {/* Main Content */}
       <div className="md:ml-64 min-h-screen pb-20 md:pb-0 dark:bg-transparent bg-gray-50">
         {/* Header with OmniSearch */}
-        <div className="sticky top-0 z-10 backdrop-blur-md dark:bg-background/80 dark:border-b dark:border-white/10 bg-white/90 border-b border-gray-200 p-4">
+        <div className="sticky top-0 z-10 backdrop-blur-md dark:bg-background/80 dark:border-b dark:border-white/10 bg-white/90 border-b border-gray-200 p-4 md:px-6">
           <div className="max-w-[95%] mx-auto flex items-center justify-between gap-4">
-            <OmniSearch onNavigate={setCurrentPage} theme={theme} onThemeToggle={toggleTheme} />
+            <OmniSearch onNavigate={handleNavigate} theme={theme} onThemeToggle={toggleTheme} />
             
             {/* Mobile Theme Toggle */}
             <button
@@ -89,15 +102,17 @@ export default function App() {
         </div>
 
         {/* Page Content */}
-        <div className="max-w-[95%] mx-auto p-4 md:p-6">
-          {renderPage()}
+        <div className="p-3 md:p-4">
+          <div className="max-w-[95%] mx-auto">
+            {renderPage()}
+          </div>
         </div>
       </div>
 
       {/* Mobile Bottom Navigation */}
       <BottomNav
         currentPage={currentPage}
-        onNavigate={setCurrentPage}
+        onNavigate={handleNavigate}
         expenseAlert={expenseAlert}
       />
 

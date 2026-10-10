@@ -6,7 +6,8 @@ import {
   Receipt, 
   Settings,
   Package,
-  ShoppingBag
+  ShoppingBag,
+  FileText
 } from 'lucide-react';
 import { cn } from './ui/utils';
 
@@ -24,6 +25,7 @@ const navItems = [
   { id: 'expenses', icon: Receipt },
   { id: 'inventory', icon: Package },
   { id: 'uniform-inventory', icon: ShoppingBag },
+  { id: 'logs', icon: FileText },
   { id: 'management', icon: Settings },
 ];
 
