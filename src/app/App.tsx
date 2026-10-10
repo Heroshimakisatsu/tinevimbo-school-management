@@ -72,7 +72,7 @@ export default function App() {
       <div className="md:ml-64 min-h-screen pb-20 md:pb-0 dark:bg-transparent bg-gray-50">
         {/* Header with OmniSearch */}
         <div className="sticky top-0 z-10 backdrop-blur-md dark:bg-background/80 dark:border-b dark:border-white/10 bg-white/90 border-b border-gray-200 p-4">
-          <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
+          <div className="max-w-[95%] mx-auto flex items-center justify-between gap-4">
             <OmniSearch onNavigate={setCurrentPage} theme={theme} onThemeToggle={toggleTheme} />
             
             {/* Mobile Theme Toggle */}
@@ -90,7 +90,7 @@ export default function App() {
         </div>
 
         {/* Page Content */}
-        <div className="max-w-7xl mx-auto p-4 md:p-6">
+        <div className="max-w-[95%] mx-auto p-4 md:p-6">
           {renderPage()}
         </div>
       </div>

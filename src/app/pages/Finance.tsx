@@ -324,164 +324,164 @@ export function Finance() {
                 <table className="w-full text-sm border-separate border-spacing-0">
                   <thead>
                     <tr className="bg-gradient-to-r from-blue-100 to-green-100 dark:from-blue-900/30 dark:to-green-900/30">
-                      <th className="text-left p-3 font-['Space_Grotesk'] font-semibold text-blue-700 dark:text-blue-300 border-b-2 border-blue-200 dark:border-blue-600">Month</th>
-                      <th className="text-center p-3 font-['Space_Grotesk'] font-semibold text-blue-600 dark:text-blue-400 border-b-2 border-blue-200 dark:border-blue-600">Tuition</th>
-                      <th className="text-center p-3 font-['Space_Grotesk'] font-semibold text-green-600 dark:text-green-400 border-b-2 border-green-200 dark:border-green-600">Transport</th>
-                      <th className="text-center p-3 font-['Space_Grotesk'] font-semibold text-blue-600 dark:text-blue-400 border-b-2 border-blue-200 dark:border-blue-600">Dress</th>
-                      <th className="text-center p-3 font-['Space_Grotesk'] font-semibold text-green-600 dark:text-green-400 border-b-2 border-green-200 dark:border-green-600">Tracksuit</th>
-                      <th className="text-center p-3 font-['Space_Grotesk'] font-semibold text-blue-600 dark:text-blue-400 border-b-2 border-blue-200 dark:border-blue-600">Shoes</th>
-                      <th className="text-center p-3 font-['Space_Grotesk'] font-semibold text-green-600 dark:text-green-400 border-b-2 border-green-200 dark:border-green-600">Shirt</th>
-                      <th className="text-center p-3 font-['Space_Grotesk'] font-semibold text-blue-600 dark:text-blue-400 border-b-2 border-blue-200 dark:border-blue-600">Shorts</th>
-                      <th className="text-center p-3 font-['Space_Grotesk'] font-semibold text-green-600 dark:text-green-400 border-b-2 border-green-200 dark:border-green-600">Relish</th>
-                      <th className="text-center p-3 font-['Space_Grotesk'] font-semibold text-green-600 dark:text-green-400 border-b-2 border-green-200 dark:border-green-600">Total</th>
+                      <th className="text-left p-1.5 md:p-2 font-['Space_Grotesk'] font-semibold text-xs text-blue-700 dark:text-blue-300 border-b-2 border-blue-200 dark:border-blue-600">Month</th>
+                      <th className="text-center p-1.5 md:p-2 font-['Space_Grotesk'] font-semibold text-xs text-blue-600 dark:text-blue-400 border-b-2 border-blue-200 dark:border-blue-600">Tuition</th>
+                      <th className="text-center p-1.5 md:p-2 font-['Space_Grotesk'] font-semibold text-xs text-green-600 dark:text-green-400 border-b-2 border-green-200 dark:border-green-600">Transport</th>
+                      <th className="text-center p-1.5 md:p-2 font-['Space_Grotesk'] font-semibold text-xs text-blue-600 dark:text-blue-400 border-b-2 border-blue-200 dark:border-blue-600">Dress</th>
+                      <th className="text-center p-1.5 md:p-2 font-['Space_Grotesk'] font-semibold text-xs text-green-600 dark:text-green-400 border-b-2 border-green-200 dark:border-green-600">Tracksuit</th>
+                      <th className="text-center p-1.5 md:p-2 font-['Space_Grotesk'] font-semibold text-xs text-blue-600 dark:text-blue-400 border-b-2 border-blue-200 dark:border-blue-600">Shoes</th>
+                      <th className="text-center p-1.5 md:p-2 font-['Space_Grotesk'] font-semibold text-xs text-green-600 dark:text-green-400 border-b-2 border-green-200 dark:border-green-600">Shirt</th>
+                      <th className="text-center p-1.5 md:p-2 font-['Space_Grotesk'] font-semibold text-xs text-blue-600 dark:text-blue-400 border-b-2 border-blue-200 dark:border-blue-600">Shorts</th>
+                      <th className="text-center p-1.5 md:p-2 font-['Space_Grotesk'] font-semibold text-xs text-green-600 dark:text-green-400 border-b-2 border-green-200 dark:border-green-600">Relish</th>
+                      <th className="text-center p-1.5 md:p-2 font-['Space_Grotesk'] font-semibold text-xs text-green-600 dark:text-green-400 border-b-2 border-green-200 dark:border-green-600">Total</th>
                     </tr>
                   </thead>
                   <tbody>
                     {paymentAnalysis?.payments.map((payment: any, index: number) => (
                       <tr key={index} className="hover:bg-gradient-to-r hover:from-gray-50 hover:to-blue-50 dark:hover:from-gray-800 dark:hover:to-blue-900/20 transition-all duration-200 border-b border-gray-100 dark:border-gray-700">
-                        <td className="p-3 font-medium font-['Space_Grotesk'] text-gray-800 dark:text-gray-200 border-r border-gray-200 dark:border-gray-600">{payment.month}</td>
-                        <td className="p-2 text-center border-r border-gray-200 dark:border-gray-600">
+                        <td className="p-1.5 md:p-2 font-medium text-xs font-['Space_Grotesk'] text-gray-800 dark:text-gray-200 border-r border-gray-200 dark:border-gray-600">{payment.month}</td>
+                        <td className="p-1 text-center border-r border-gray-200 dark:border-gray-600">
                           {payment.tuition.amount > 0 ? (
-                            <div className="p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-700">
-                              <div className="text-xs font-['Inter'] text-blue-600 dark:text-blue-400 mb-1">#{payment.tuition.receipt}</div>
-                              <div className="text-xs font-['Inter'] text-gray-600 dark:text-gray-400 mb-1">{payment.tuition.date}</div>
-                              <div className="font-['Space_Grotesk'] text-blue-600 dark:text-blue-400 font-bold">${payment.tuition.amount}</div>
+                            <div className="p-1 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-700 min-w-[75px]">
+                              <div className="text-[10px] font-['Inter'] text-blue-600 dark:text-blue-400 leading-none mb-0.5">#{payment.tuition.receipt}</div>
+                              <div className="text-[9px] font-['Inter'] text-gray-500 dark:text-gray-400 leading-none mb-0.5">{payment.tuition.date}</div>
+                              <div className="font-['Space_Grotesk'] text-xs text-blue-600 dark:text-blue-400 font-bold">${payment.tuition.amount}</div>
                             </div>
                           ) : (
-                            <div className="p-2 text-gray-400 dark:text-gray-500">-</div>
+                            <div className="p-1 text-xs text-gray-400 dark:text-gray-500">-</div>
                           )}
                         </td>
-                        <td className="p-2 text-center border-r border-gray-200 dark:border-gray-600">
+                        <td className="p-1 text-center border-r border-gray-200 dark:border-gray-600">
                           {payment.transport.amount > 0 ? (
-                            <div className="p-2 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-700">
-                              <div className="text-xs font-['Inter'] text-green-600 dark:text-green-400 mb-1">#{payment.transport.receipt}</div>
-                              <div className="text-xs font-['Inter'] text-gray-600 dark:text-gray-400 mb-1">{payment.transport.date}</div>
-                              <div className="font-['Space_Grotesk'] text-green-600 dark:text-green-400 font-bold">${payment.transport.amount}</div>
+                            <div className="p-1 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-700 min-w-[75px]">
+                              <div className="text-[10px] font-['Inter'] text-green-600 dark:text-green-400 leading-none mb-0.5">#{payment.transport.receipt}</div>
+                              <div className="text-[9px] font-['Inter'] text-gray-500 dark:text-gray-400 leading-none mb-0.5">{payment.transport.date}</div>
+                              <div className="font-['Space_Grotesk'] text-xs text-green-600 dark:text-green-400 font-bold">${payment.transport.amount}</div>
                             </div>
                           ) : (
-                            <div className="p-2 text-gray-400 dark:text-gray-500">-</div>
+                            <div className="p-1 text-xs text-gray-400 dark:text-gray-500">-</div>
                           )}
                         </td>
-                        <td className="p-2 text-center border-r border-gray-200 dark:border-gray-600">
+                        <td className="p-1 text-center border-r border-gray-200 dark:border-gray-600">
                           {payment.uniformDress.amount > 0 ? (
-                            <div className="p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-700">
-                              <div className="text-xs font-['Inter'] text-blue-600 dark:text-blue-400 mb-1">#{payment.uniformDress.receipt}</div>
-                              <div className="text-xs font-['Inter'] text-gray-600 dark:text-gray-400 mb-1">{payment.uniformDress.date}</div>
-                              <div className="font-['Space_Grotesk'] text-blue-600 dark:text-blue-400 font-bold">${payment.uniformDress.amount}</div>
+                            <div className="p-1 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-700 min-w-[75px]">
+                              <div className="text-[10px] font-['Inter'] text-blue-600 dark:text-blue-400 leading-none mb-0.5">#{payment.uniformDress.receipt}</div>
+                              <div className="text-[9px] font-['Inter'] text-gray-500 dark:text-gray-400 leading-none mb-0.5">{payment.uniformDress.date}</div>
+                              <div className="font-['Space_Grotesk'] text-xs text-blue-600 dark:text-blue-400 font-bold">${payment.uniformDress.amount}</div>
                             </div>
                           ) : (
-                            <div className="p-2 text-gray-400 dark:text-gray-500">-</div>
+                            <div className="p-1 text-xs text-gray-400 dark:text-gray-500">-</div>
                           )}
                         </td>
-                        <td className="p-2 text-center border-r border-gray-200 dark:border-gray-600">
+                        <td className="p-1 text-center border-r border-gray-200 dark:border-gray-600">
                           {payment.uniformTracksuit.amount > 0 ? (
-                            <div className="p-2 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-700">
-                              <div className="text-xs font-['Inter'] text-green-600 dark:text-green-400 mb-1">#{payment.uniformTracksuit.receipt}</div>
-                              <div className="text-xs font-['Inter'] text-gray-600 dark:text-gray-400 mb-1">{payment.uniformTracksuit.date}</div>
-                              <div className="font-['Space_Grotesk'] text-green-600 dark:text-green-400 font-bold">${payment.uniformTracksuit.amount}</div>
+                            <div className="p-1 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-700 min-w-[75px]">
+                              <div className="text-[10px] font-['Inter'] text-green-600 dark:text-green-400 leading-none mb-0.5">#{payment.uniformTracksuit.receipt}</div>
+                              <div className="text-[9px] font-['Inter'] text-gray-500 dark:text-gray-400 leading-none mb-0.5">{payment.uniformTracksuit.date}</div>
+                              <div className="font-['Space_Grotesk'] text-xs text-green-600 dark:text-green-400 font-bold">${payment.uniformTracksuit.amount}</div>
                             </div>
                           ) : (
-                            <div className="p-2 text-gray-400 dark:text-gray-500">-</div>
+                            <div className="p-1 text-xs text-gray-400 dark:text-gray-500">-</div>
                           )}
                         </td>
-                        <td className="p-2 text-center border-r border-gray-200 dark:border-gray-600">
+                        <td className="p-1 text-center border-r border-gray-200 dark:border-gray-600">
                           {payment.uniformShoes.amount > 0 ? (
-                            <div className="p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-700">
-                              <div className="text-xs font-['Inter'] text-blue-600 dark:text-blue-400 mb-1">#{payment.uniformShoes.receipt}</div>
-                              <div className="text-xs font-['Inter'] text-gray-600 dark:text-gray-400 mb-1">{payment.uniformShoes.date}</div>
-                              <div className="font-['Space_Grotesk'] text-blue-600 dark:text-blue-400 font-bold">${payment.uniformShoes.amount}</div>
+                            <div className="p-1 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-700 min-w-[75px]">
+                              <div className="text-[10px] font-['Inter'] text-blue-600 dark:text-blue-400 leading-none mb-0.5">#{payment.uniformShoes.receipt}</div>
+                              <div className="text-[9px] font-['Inter'] text-gray-500 dark:text-gray-400 leading-none mb-0.5">{payment.uniformShoes.date}</div>
+                              <div className="font-['Space_Grotesk'] text-xs text-blue-600 dark:text-blue-400 font-bold">${payment.uniformShoes.amount}</div>
                             </div>
                           ) : (
-                            <div className="p-2 text-gray-400 dark:text-gray-500">-</div>
+                            <div className="p-1 text-xs text-gray-400 dark:text-gray-500">-</div>
                           )}
                         </td>
-                        <td className="p-2 text-center border-r border-gray-200 dark:border-gray-600">
+                        <td className="p-1 text-center border-r border-gray-200 dark:border-gray-600">
                           {payment.uniformShirt.amount > 0 ? (
-                            <div className="p-2 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-700">
-                              <div className="text-xs font-['Inter'] text-green-600 dark:text-green-400 mb-1">#{payment.uniformShirt.receipt}</div>
-                              <div className="text-xs font-['Inter'] text-gray-600 dark:text-gray-400 mb-1">{payment.uniformShirt.date}</div>
-                              <div className="font-['Space_Grotesk'] text-green-600 dark:text-green-400 font-bold">${payment.uniformShirt.amount}</div>
+                            <div className="p-1 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-700 min-w-[75px]">
+                              <div className="text-[10px] font-['Inter'] text-green-600 dark:text-green-400 leading-none mb-0.5">#{payment.uniformShirt.receipt}</div>
+                              <div className="text-[9px] font-['Inter'] text-gray-500 dark:text-gray-400 leading-none mb-0.5">{payment.uniformShirt.date}</div>
+                              <div className="font-['Space_Grotesk'] text-xs text-green-600 dark:text-green-400 font-bold">${payment.uniformShirt.amount}</div>
                             </div>
                           ) : (
-                            <div className="p-2 text-gray-400 dark:text-gray-500">-</div>
+                            <div className="p-1 text-xs text-gray-400 dark:text-gray-500">-</div>
                           )}
                         </td>
-                        <td className="p-2 text-center border-r border-gray-200 dark:border-gray-600">
+                        <td className="p-1 text-center border-r border-gray-200 dark:border-gray-600">
                           {payment.uniformShorts.amount > 0 ? (
-                            <div className="p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-700">
-                              <div className="text-xs font-['Inter'] text-blue-600 dark:text-blue-400 mb-1">#{payment.uniformShorts.receipt}</div>
-                              <div className="text-xs font-['Inter'] text-gray-600 dark:text-gray-400 mb-1">{payment.uniformShorts.date}</div>
-                              <div className="font-['Space_Grotesk'] text-blue-600 dark:text-blue-400 font-bold">${payment.uniformShorts.amount}</div>
+                            <div className="p-1 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-700 min-w-[75px]">
+                              <div className="text-[10px] font-['Inter'] text-blue-600 dark:text-blue-400 leading-none mb-0.5">#{payment.uniformShorts.receipt}</div>
+                              <div className="text-[9px] font-['Inter'] text-gray-500 dark:text-gray-400 leading-none mb-0.5">{payment.uniformShorts.date}</div>
+                              <div className="font-['Space_Grotesk'] text-xs text-blue-600 dark:text-blue-400 font-bold">${payment.uniformShorts.amount}</div>
                             </div>
                           ) : (
-                            <div className="p-2 text-gray-400 dark:text-gray-500">-</div>
+                            <div className="p-1 text-xs text-gray-400 dark:text-gray-500">-</div>
                           )}
                         </td>
-                        <td className="p-2 text-center border-r border-gray-200 dark:border-gray-600">
+                        <td className="p-1 text-center border-r border-gray-200 dark:border-gray-600">
                           {payment.relish.amount > 0 ? (
-                            <div className="p-2 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-700">
-                              <div className="text-xs font-['Inter'] text-green-600 dark:text-green-400 mb-1">#{payment.relish.receipt}</div>
-                              <div className="text-xs font-['Inter'] text-gray-600 dark:text-gray-400 mb-1">{payment.relish.date}</div>
-                              <div className="font-['Space_Grotesk'] text-green-600 dark:text-green-400 font-bold">${payment.relish.amount}</div>
+                            <div className="p-1 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-700 min-w-[75px]">
+                              <div className="text-[10px] font-['Inter'] text-green-600 dark:text-green-400 leading-none mb-0.5">#{payment.relish.receipt}</div>
+                              <div className="text-[9px] font-['Inter'] text-gray-500 dark:text-gray-400 leading-none mb-0.5">{payment.relish.date}</div>
+                              <div className="font-['Space_Grotesk'] text-xs text-green-600 dark:text-green-400 font-bold">${payment.relish.amount}</div>
                             </div>
                           ) : (
-                            <div className="p-2 text-gray-400 dark:text-gray-500">-</div>
+                            <div className="p-1 text-xs text-gray-400 dark:text-gray-500">-</div>
                           )}
                         </td>
-                        <td className="p-3 text-center font-['Space_Grotesk'] text-green-600 dark:text-green-400 font-bold bg-green-50 dark:bg-green-900/20 border-l-2 border-green-300 dark:border-green-600">{payment.total}</td>
+                        <td className="p-1.5 md:p-2 text-center font-['Space_Grotesk'] text-xs text-green-600 dark:text-green-400 font-bold bg-green-50 dark:bg-green-900/20 border-l-2 border-green-300 dark:border-green-600">{payment.total}</td>
                       </tr>
                     ))}
                     <tr className="bg-gradient-to-r from-gray-100 to-blue-100 dark:from-gray-800 dark:to-blue-900/30 font-bold">
-                      <td className="p-3 font-['Space_Grotesk'] text-gray-800 dark:text-gray-200 border-r-2 border-gray-300 dark:border-gray-600">TOTAL</td>
-                      <td className="p-2 text-center border-r-2 border-gray-300 dark:border-gray-600">
-                        <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg border border-blue-300 dark:border-blue-600">
-                          <div className="text-xs font-['Inter'] text-blue-600 dark:text-blue-400 font-bold">6 Receipts</div>
-                          <div className="font-['Space_Grotesk'] text-blue-600 dark:text-blue-400 font-bold">${paymentAnalysis?.totals.tuition}</div>
+                      <td className="p-1.5 md:p-2 text-xs font-['Space_Grotesk'] text-gray-800 dark:text-gray-200 border-r-2 border-gray-300 dark:border-gray-600">TOTAL</td>
+                      <td className="p-1 text-center border-r-2 border-gray-300 dark:border-gray-600">
+                        <div className="p-1 bg-blue-100 dark:bg-blue-900/30 rounded-lg border border-blue-300 dark:border-blue-600 min-w-[75px]">
+                          <div className="text-[9px] font-['Inter'] text-blue-600 dark:text-blue-400 font-bold leading-none mb-0.5">6 Receipts</div>
+                          <div className="font-['Space_Grotesk'] text-xs text-blue-600 dark:text-blue-400 font-bold">${paymentAnalysis?.totals.tuition}</div>
                         </div>
                       </td>
-                      <td className="p-2 text-center border-r-2 border-gray-300 dark:border-gray-600">
-                        <div className="p-2 bg-green-100 dark:bg-green-900/30 rounded-lg border border-green-300 dark:border-green-600">
-                          <div className="text-xs font-['Inter'] text-green-600 dark:text-green-400 font-bold">6 Receipts</div>
-                          <div className="font-['Space_Grotesk'] text-green-600 dark:text-green-400 font-bold">${paymentAnalysis?.totals.transport}</div>
+                      <td className="p-1 text-center border-r-2 border-gray-300 dark:border-gray-600">
+                        <div className="p-1 bg-green-100 dark:bg-green-900/30 rounded-lg border border-green-300 dark:border-green-600 min-w-[75px]">
+                          <div className="text-[9px] font-['Inter'] text-green-600 dark:text-green-400 font-bold leading-none mb-0.5">6 Receipts</div>
+                          <div className="font-['Space_Grotesk'] text-xs text-green-600 dark:text-green-400 font-bold">${paymentAnalysis?.totals.transport}</div>
                         </div>
                       </td>
-                      <td className="p-2 text-center border-r-2 border-gray-300 dark:border-gray-600">
-                        <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg border border-blue-300 dark:border-blue-600">
-                          <div className="text-xs font-['Inter'] text-blue-600 dark:text-blue-400 font-bold">2 Receipts</div>
-                          <div className="font-['Space_Grotesk'] text-blue-600 dark:text-blue-400 font-bold">${paymentAnalysis?.totals.uniformDress}</div>
+                      <td className="p-1 text-center border-r-2 border-gray-300 dark:border-gray-600">
+                        <div className="p-1 bg-blue-100 dark:bg-blue-900/30 rounded-lg border border-blue-300 dark:border-blue-600 min-w-[75px]">
+                          <div className="text-[9px] font-['Inter'] text-blue-600 dark:text-blue-400 font-bold leading-none mb-0.5">2 Receipts</div>
+                          <div className="font-['Space_Grotesk'] text-xs text-blue-600 dark:text-blue-400 font-bold">${paymentAnalysis?.totals.uniformDress}</div>
                         </div>
                       </td>
-                      <td className="p-2 text-center border-r-2 border-gray-300 dark:border-gray-600">
-                        <div className="p-2 bg-green-100 dark:bg-green-900/30 rounded-lg border border-green-300 dark:border-green-600">
-                          <div className="text-xs font-['Inter'] text-green-600 dark:text-green-400 font-bold">2 Receipts</div>
-                          <div className="font-['Space_Grotesk'] text-green-600 dark:text-green-400 font-bold">${paymentAnalysis?.totals.uniformTracksuit}</div>
+                      <td className="p-1 text-center border-r-2 border-gray-300 dark:border-gray-600">
+                        <div className="p-1 bg-green-100 dark:bg-green-900/30 rounded-lg border border-green-300 dark:border-green-600 min-w-[75px]">
+                          <div className="text-[9px] font-['Inter'] text-green-600 dark:text-green-400 font-bold leading-none mb-0.5">2 Receipts</div>
+                          <div className="font-['Space_Grotesk'] text-xs text-green-600 dark:text-green-400 font-bold">${paymentAnalysis?.totals.uniformTracksuit}</div>
                         </div>
                       </td>
-                      <td className="p-2 text-center border-r-2 border-gray-300 dark:border-gray-600">
-                        <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg border border-blue-300 dark:border-blue-600">
-                          <div className="text-xs font-['Inter'] text-blue-600 dark:text-blue-400 font-bold">2 Receipts</div>
-                          <div className="font-['Space_Grotesk'] text-blue-600 dark:text-blue-400 font-bold">${paymentAnalysis?.totals.uniformShoes}</div>
+                      <td className="p-1 text-center border-r-2 border-gray-300 dark:border-gray-600">
+                        <div className="p-1 bg-blue-100 dark:bg-blue-900/30 rounded-lg border border-blue-300 dark:border-blue-600 min-w-[75px]">
+                          <div className="text-[9px] font-['Inter'] text-blue-600 dark:text-blue-400 font-bold leading-none mb-0.5">2 Receipts</div>
+                          <div className="font-['Space_Grotesk'] text-xs text-blue-600 dark:text-blue-400 font-bold">${paymentAnalysis?.totals.uniformShoes}</div>
                         </div>
                       </td>
-                      <td className="p-2 text-center border-r-2 border-gray-300 dark:border-gray-600">
-                        <div className="p-2 bg-green-100 dark:bg-green-900/30 rounded-lg border border-green-300 dark:border-green-600">
-                          <div className="text-xs font-['Inter'] text-green-600 dark:text-green-400 font-bold">2 Receipts</div>
-                          <div className="font-['Space_Grotesk'] text-green-600 dark:text-green-400 font-bold">${paymentAnalysis?.totals.uniformShirt}</div>
+                      <td className="p-1 text-center border-r-2 border-gray-300 dark:border-gray-600">
+                        <div className="p-1 bg-green-100 dark:bg-green-900/30 rounded-lg border border-green-300 dark:border-green-600 min-w-[75px]">
+                          <div className="text-[9px] font-['Inter'] text-green-600 dark:text-green-400 font-bold leading-none mb-0.5">2 Receipts</div>
+                          <div className="font-['Space_Grotesk'] text-xs text-green-600 dark:text-green-400 font-bold">${paymentAnalysis?.totals.uniformShirt}</div>
                         </div>
                       </td>
-                      <td className="p-2 text-center border-r-2 border-gray-300 dark:border-gray-600">
-                        <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg border border-blue-300 dark:border-blue-600">
-                          <div className="text-xs font-['Inter'] text-blue-600 dark:text-blue-400 font-bold">2 Receipts</div>
-                          <div className="font-['Space_Grotesk'] text-blue-600 dark:text-blue-400 font-bold">${paymentAnalysis?.totals.uniformShorts}</div>
+                      <td className="p-1 text-center border-r-2 border-gray-300 dark:border-gray-600">
+                        <div className="p-1 bg-blue-100 dark:bg-blue-900/30 rounded-lg border border-blue-300 dark:border-blue-600 min-w-[75px]">
+                          <div className="text-[9px] font-['Inter'] text-blue-600 dark:text-blue-400 font-bold leading-none mb-0.5">2 Receipts</div>
+                          <div className="font-['Space_Grotesk'] text-xs text-blue-600 dark:text-blue-400 font-bold">${paymentAnalysis?.totals.uniformShorts}</div>
                         </div>
                       </td>
-                      <td className="p-2 text-center border-r-2 border-gray-300 dark:border-gray-600">
-                        <div className="p-2 bg-green-100 dark:bg-green-900/30 rounded-lg border border-green-300 dark:border-green-600">
-                          <div className="text-xs font-['Inter'] text-green-600 dark:text-green-400 font-bold">6 Receipts</div>
-                          <div className="font-['Space_Grotesk'] text-green-600 dark:text-green-400 font-bold">${paymentAnalysis?.totals.relish}</div>
+                      <td className="p-1 text-center border-r-2 border-gray-300 dark:border-gray-600">
+                        <div className="p-1 bg-green-100 dark:bg-green-900/30 rounded-lg border border-green-300 dark:border-green-600 min-w-[75px]">
+                          <div className="text-[9px] font-['Inter'] text-green-600 dark:text-green-400 font-bold leading-none mb-0.5">6 Receipts</div>
+                          <div className="font-['Space_Grotesk'] text-xs text-green-600 dark:text-green-400 font-bold">${paymentAnalysis?.totals.relish}</div>
                         </div>
                       </td>
-                      <td className="p-3 text-center font-['Space_Grotesk'] text-green-600 dark:text-green-400 font-bold text-lg bg-green-100 dark:bg-green-900/30 border-l-2 border-green-400 dark:border-green-600">
+                      <td className="p-1.5 md:p-2 text-center font-['Space_Grotesk'] text-green-600 dark:text-green-400 font-bold text-xs bg-green-100 dark:bg-green-900/30 border-l-2 border-green-400 dark:border-green-600">
                         ${paymentAnalysis?.totals.total}
                       </td>
                     </tr>
