@@ -465,11 +465,10 @@ export function Tracer() {
                           transition={{ duration: 0.2 }}
                           className="overflow-hidden"
                         >
-                          <div className="rounded-xl border border-border bg-card/40 p-4 backdrop-blur-md">
+                          <div className="p-4 rounded-[20px] bg-gradient-to-r from-blue-50 to-green-50 dark:from-blue-900/20 dark:to-green-900/20 border-2 border-blue-200 dark:border-blue-700">
                             <div className="flex items-center justify-between mb-3">
-                              <h4 className="font-['Space_Grotesk'] text-sm font-semibold text-primary flex items-center gap-2">
-                                <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
-                                Financial Profile: {student.name} ({student.registrationNumber})
+                              <h4 className="font-['Space_Grotesk'] text-lg text-blue-600 dark:text-blue-400">
+                                {student.registrationNumber} - {student.name} - Payment Analysis (Last 6 Months)
                               </h4>
                               <Button
                                 onClick={(e) => { e.stopPropagation(); toggleStudentProfile(student.id); }}
@@ -480,41 +479,103 @@ export function Tracer() {
                                 <X className="w-4 h-4" />
                               </Button>
                             </div>
-                            <div className="overflow-x-auto rounded-lg border border-border/50">
-                              <Table className="min-w-full divide-y divide-border/30">
-                                <TableHeader className="bg-muted/50 dark:bg-black/20">
-                                  <TableRow className="border-b border-border/30 hover:bg-transparent">
-                                    <TableHead className="font-['Inter'] text-xs font-semibold py-2">Month</TableHead>
-                                    <TableHead className="font-['Inter'] text-xs font-semibold py-2">Tuition</TableHead>
-                                    <TableHead className="font-['Inter'] text-xs font-semibold py-2">Transport</TableHead>
-                                    <TableHead className="font-['Inter'] text-xs font-semibold py-2">Dress</TableHead>
-                                    <TableHead className="font-['Inter'] text-xs font-semibold py-2">Tracksuit</TableHead>
-                                    <TableHead className="font-['Inter'] text-xs font-semibold py-2">Shoes</TableHead>
-                                    <TableHead className="font-['Inter'] text-xs font-semibold py-2">Shirt</TableHead>
-                                    <TableHead className="font-['Inter'] text-xs font-semibold py-2">Shorts</TableHead>
-                                    <TableHead className="font-['Inter'] text-xs font-semibold py-2">Relish</TableHead>
-                                    <TableHead className="font-['Inter'] text-xs font-semibold py-2">Other</TableHead>
-                                    <TableHead className="font-['Inter'] text-xs font-semibold py-2">Total</TableHead>
-                                  </TableRow>
-                                </TableHeader>
-                                <TableBody>
+                            <div className="overflow-x-auto">
+                              <table className="w-full text-sm border-separate border-spacing-0">
+                                <thead>
+                                  <tr className="bg-gradient-to-r from-blue-100 to-green-100 dark:from-blue-900/30 dark:to-green-900/30">
+                                    <th className="text-left p-1.5 md:p-2 font-['Space_Grotesk'] font-semibold text-xs text-blue-700 dark:text-blue-300 border-b-2 border-blue-200 dark:border-blue-600">Month</th>
+                                    <th className="text-center p-1.5 md:p-2 font-['Space_Grotesk'] font-semibold text-xs text-blue-600 dark:text-blue-400 border-b-2 border-blue-200 dark:border-blue-600">Tuition</th>
+                                    <th className="text-center p-1.5 md:p-2 font-['Space_Grotesk'] font-semibold text-xs text-green-600 dark:text-green-400 border-b-2 border-green-200 dark:border-green-600">Transport</th>
+                                    <th className="text-center p-1.5 md:p-2 font-['Space_Grotesk'] font-semibold text-xs text-blue-600 dark:text-blue-400 border-b-2 border-blue-200 dark:border-blue-600">Dress</th>
+                                    <th className="text-center p-1.5 md:p-2 font-['Space_Grotesk'] font-semibold text-xs text-green-600 dark:text-green-400 border-b-2 border-green-200 dark:border-green-600">Tracksuit</th>
+                                    <th className="text-center p-1.5 md:p-2 font-['Space_Grotesk'] font-semibold text-xs text-blue-600 dark:text-blue-400 border-b-2 border-blue-200 dark:border-blue-600">Shoes</th>
+                                    <th className="text-center p-1.5 md:p-2 font-['Space_Grotesk'] font-semibold text-xs text-green-600 dark:text-green-400 border-b-2 border-green-200 dark:border-green-600">Shirt</th>
+                                    <th className="text-center p-1.5 md:p-2 font-['Space_Grotesk'] font-semibold text-xs text-blue-600 dark:text-blue-400 border-b-2 border-blue-200 dark:border-blue-600">Shorts</th>
+                                    <th className="text-center p-1.5 md:p-2 font-['Space_Grotesk'] font-semibold text-xs text-green-600 dark:text-green-400 border-b-2 border-green-200 dark:border-green-600">Relish</th>
+                                    <th className="text-center p-1.5 md:p-2 font-['Space_Grotesk'] font-semibold text-xs text-green-600 dark:text-green-400 border-b-2 border-green-200 dark:border-green-600">Total</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
                                   {getFinancialProfile(student.id).map((row) => (
-                                    <TableRow key={row.month} className="border-b border-border/10 dark:hover:bg-white/5 hover:bg-gray-50/50 transition-colors">
-                                      <TableCell className="font-['Inter'] text-xs py-2 font-medium">{row.month}</TableCell>
-                                      <TableCell className="font-['Inter'] text-xs py-2">${row.tuition.toFixed(2)}</TableCell>
-                                      <TableCell className="font-['Inter'] text-xs py-2">${row.transport.toFixed(2)}</TableCell>
-                                      <TableCell className="font-['Inter'] text-xs py-2">${row.dress.toFixed(2)}</TableCell>
-                                      <TableCell className="font-['Inter'] text-xs py-2">${row.tracksuit.toFixed(2)}</TableCell>
-                                      <TableCell className="font-['Inter'] text-xs py-2">${row.shoes.toFixed(2)}</TableCell>
-                                      <TableCell className="font-['Inter'] text-xs py-2">${row.shirt.toFixed(2)}</TableCell>
-                                      <TableCell className="font-['Inter'] text-xs py-2">${row.shorts.toFixed(2)}</TableCell>
-                                      <TableCell className="font-['Inter'] text-xs py-2">${row.relish.toFixed(2)}</TableCell>
-                                      <TableCell className="font-['Inter'] text-xs py-2">${row.other.toFixed(2)}</TableCell>
-                                      <TableCell className="font-['Inter'] text-xs py-2 font-semibold text-primary">${row.total.toFixed(2)}</TableCell>
-                                    </TableRow>
+                                    <tr key={row.month} className="hover:bg-gradient-to-r hover:from-gray-50 hover:to-blue-50 dark:hover:from-gray-800 dark:hover:to-blue-900/20 transition-all duration-200 border-b border-gray-100 dark:border-gray-700">
+                                      <td className="p-1.5 md:p-2 font-medium text-xs font-['Space_Grotesk'] text-gray-800 dark:text-gray-200 border-r border-gray-200 dark:border-gray-600">{row.month}</td>
+                                      <td className="p-1 text-center border-r border-gray-200 dark:border-gray-600">
+                                        {row.tuition > 0 ? (
+                                          <div className="p-1 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-700 min-w-[75px]">
+                                            <div className="font-['Space_Grotesk'] text-xs text-blue-600 dark:text-blue-400 font-bold">${row.tuition.toFixed(2)}</div>
+                                          </div>
+                                        ) : (
+                                          <div className="p-1 text-xs text-gray-400 dark:text-gray-500">-</div>
+                                        )}
+                                      </td>
+                                      <td className="p-1 text-center border-r border-gray-200 dark:border-gray-600">
+                                        {row.transport > 0 ? (
+                                          <div className="p-1 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-700 min-w-[75px]">
+                                            <div className="font-['Space_Grotesk'] text-xs text-green-600 dark:text-green-400 font-bold">${row.transport.toFixed(2)}</div>
+                                          </div>
+                                        ) : (
+                                          <div className="p-1 text-xs text-gray-400 dark:text-gray-500">-</div>
+                                        )}
+                                      </td>
+                                      <td className="p-1 text-center border-r border-gray-200 dark:border-gray-600">
+                                        {row.dress > 0 ? (
+                                          <div className="p-1 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-700 min-w-[75px]">
+                                            <div className="font-['Space_Grotesk'] text-xs text-blue-600 dark:text-blue-400 font-bold">${row.dress.toFixed(2)}</div>
+                                          </div>
+                                        ) : (
+                                          <div className="p-1 text-xs text-gray-400 dark:text-gray-500">-</div>
+                                        )}
+                                      </td>
+                                      <td className="p-1 text-center border-r border-gray-200 dark:border-gray-600">
+                                        {row.tracksuit > 0 ? (
+                                          <div className="p-1 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-700 min-w-[75px]">
+                                            <div className="font-['Space_Grotesk'] text-xs text-green-600 dark:text-green-400 font-bold">${row.tracksuit.toFixed(2)}</div>
+                                          </div>
+                                        ) : (
+                                          <div className="p-1 text-xs text-gray-400 dark:text-gray-500">-</div>
+                                        )}
+                                      </td>
+                                      <td className="p-1 text-center border-r border-gray-200 dark:border-gray-600">
+                                        {row.shoes > 0 ? (
+                                          <div className="p-1 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-700 min-w-[75px]">
+                                            <div className="font-['Space_Grotesk'] text-xs text-blue-600 dark:text-blue-400 font-bold">${row.shoes.toFixed(2)}</div>
+                                          </div>
+                                        ) : (
+                                          <div className="p-1 text-xs text-gray-400 dark:text-gray-500">-</div>
+                                        )}
+                                      </td>
+                                      <td className="p-1 text-center border-r border-gray-200 dark:border-gray-600">
+                                        {row.shirt > 0 ? (
+                                          <div className="p-1 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-700 min-w-[75px]">
+                                            <div className="font-['Space_Grotesk'] text-xs text-green-600 dark:text-green-400 font-bold">${row.shirt.toFixed(2)}</div>
+                                          </div>
+                                        ) : (
+                                          <div className="p-1 text-xs text-gray-400 dark:text-gray-500">-</div>
+                                        )}
+                                      </td>
+                                      <td className="p-1 text-center border-r border-gray-200 dark:border-gray-600">
+                                        {row.shorts > 0 ? (
+                                          <div className="p-1 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-700 min-w-[75px]">
+                                            <div className="font-['Space_Grotesk'] text-xs text-blue-600 dark:text-blue-400 font-bold">${row.shorts.toFixed(2)}</div>
+                                          </div>
+                                        ) : (
+                                          <div className="p-1 text-xs text-gray-400 dark:text-gray-500">-</div>
+                                        )}
+                                      </td>
+                                      <td className="p-1 text-center border-r border-gray-200 dark:border-gray-600">
+                                        {row.relish > 0 ? (
+                                          <div className="p-1 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-700 min-w-[75px]">
+                                            <div className="font-['Space_Grotesk'] text-xs text-green-600 dark:text-green-400 font-bold">${row.relish.toFixed(2)}</div>
+                                          </div>
+                                        ) : (
+                                          <div className="p-1 text-xs text-gray-400 dark:text-gray-500">-</div>
+                                        )}
+                                      </td>
+                                      <td className="p-1.5 md:p-2 text-center font-['Space_Grotesk'] text-xs text-green-600 dark:text-green-400 font-bold bg-green-50 dark:bg-green-900/20 border-l-2 border-green-300 dark:border-green-600">${row.total.toFixed(2)}</td>
+                                    </tr>
                                   ))}
-                                </TableBody>
-                              </Table>
+                                </tbody>
+                              </table>
                             </div>
                           </div>
                         </motion.div>

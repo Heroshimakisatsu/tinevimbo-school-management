@@ -12,7 +12,7 @@ import { Management } from './pages/Management';
 import { Inventory } from './pages/Inventory';
 import { UniformInventory } from './pages/UniformInventory';
 import { Sun, Moon } from 'lucide-react';
-import { calculateStats } from './data/mockData';
+
 
 export default function App() {
   const [theme, setTheme] = useState<'light' | 'dark'>('dark');
@@ -30,9 +30,8 @@ export default function App() {
     setTheme(theme === 'dark' ? 'light' : 'dark');
   };
 
-  // Check if expenses exceed income for alert
-  const stats = calculateStats();
-  const expenseAlert = stats.totalExpenses > stats.totalRevenue * 0.8;
+  // Removed mock stats and expense alert logic (no initial students)
+  const expenseAlert = false;
 
   const renderPage = () => {
     switch (currentPage) {
